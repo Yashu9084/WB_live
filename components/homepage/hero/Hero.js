@@ -55,7 +55,7 @@ function Hero({vendor_list,venue_list,venueCategogies,cities }) {
           </p>
         </div>
 
-        {/* <SearchBar venueCategogies={venueCategogies} vendorCategories={vendorCategories} cities={cities} /> */}
+        <SearchBar venueCategogies={venueCategogies} vendorCategories={vendorCategories} cities={cities} />
         <SearchBar3
           suggestions={suggestions}
           selectedCity={selectedCity}

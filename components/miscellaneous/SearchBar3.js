@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Autosuggest from "react-autosuggest";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
@@ -7,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 const Container = styled.div`
   position: absolute;
   top: 60%;
-  left: 28%;
+  left: 27%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,11 +56,12 @@ const Container = styled.div`
       showSuggestions ? "0" : "25px"};
     font-family: "Work Sans", sans-serif;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1000px) {
     ${"" /* display:none; */}
     top: 70%;
     left:25%;
     width: 40%;
+    display:none;
     .autosuggest-input {
       width: 42rem;
       right: -5%;
@@ -128,6 +129,12 @@ const SearchBar3 = ({
   const [suggestionsList, setSuggestionsList] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const router = useRouter();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    // Assuming you have a ref set up for your input
+    inputRef.current.focus();
+  }, []);
 
   const searchHandler = () => {
     if (value == "5 Start Wedding Hotels") {
@@ -200,6 +207,21 @@ const SearchBar3 = ({
       router.push(url);
     }
   };
+
+  function debounce(func, wait) {
+    let timeout;
+
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
   const getSuggestions = (inputValue) => {
     const inputValueTrimmed = inputValue.trim();
     // Check if the inputValue is empty, return suggestions for "a"
@@ -215,9 +237,10 @@ const SearchBar3 = ({
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestionsList(getSuggestions(value || 'a')); // Ensure suggestions for "a" are fetched if value is empty
+    setSuggestionsList(getSuggestions(value || "a")); // Ensure suggestions for "a" are fetched if value is empty
     setShowSuggestions(true);
   };
+  const debouncedFetchSuggestions = debounce(onSuggestionsFetchRequested, 800); // Adjust the delay as needed
 
   const renderSuggestionsContainer = ({ containerProps, children }) => {
     const { ref, ...restContainerProps } = containerProps;
@@ -246,7 +269,8 @@ const SearchBar3 = ({
     placeholder: "Search for Banquet Halls, Photographer, etc..",
     value,
     onChange,
-    onFocus: () => onSuggestionsFetchRequested({ value: '' }),
+    onFocus: () => onSuggestionsFetchRequested({ value: "" }),
+    ref: inputRef,
     className: "autosuggest-input",
   };
 
@@ -254,12 +278,12 @@ const SearchBar3 = ({
     <Container showSuggestions={showSuggestions}>
       <Autosuggest
         suggestions={suggestionsList}
-        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsFetchRequested={debouncedFetchSuggestions}
         onSuggestionsClearRequested={onSuggestionsClearRequested}
         renderSuggestionsContainer={renderSuggestionsContainer}
         getSuggestionValue={(suggestion) => suggestion}
         renderSuggestion={(suggestion) => <Suggestion>{suggestion}</Suggestion>}
-        shouldRenderSuggestions={() => true} 
+        shouldRenderSuggestions={() => true}
         inputProps={inputProps}
         onSuggestionSelected={(_, { suggestion }) =>
           onSuggestionClick(suggestion)
