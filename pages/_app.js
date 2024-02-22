@@ -1,4 +1,3 @@
-``;
 import { MyContextProvider } from "@/context/MyContext";
 import "@/styles/globals.css";
 import { GlobalStyles } from "@/styles/GlobalStyle";
