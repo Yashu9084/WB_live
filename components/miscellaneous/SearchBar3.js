@@ -201,15 +201,21 @@ const SearchBar3 = ({
     }
   };
   const getSuggestions = (inputValue) => {
-    const inputValueLowerCase = inputValue.trim().toLowerCase();
+    const inputValueTrimmed = inputValue.trim();
+    // Check if the inputValue is empty, return suggestions for "a"
+    if (inputValueTrimmed === "") {
+      return suggestions.filter((suggestion) =>
+        suggestion.toLowerCase().startsWith("a")
+      );
+    }
+    const inputValueLowerCase = inputValueTrimmed.toLowerCase();
     return suggestions.filter(
       (suggestion) => suggestion.toLowerCase().indexOf(inputValueLowerCase) > -1
     );
   };
 
-
   const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestionsList(getSuggestions(value));
+    setSuggestionsList(getSuggestions(value || 'a')); // Ensure suggestions for "a" are fetched if value is empty
     setShowSuggestions(true);
   };
 
@@ -237,10 +243,10 @@ const SearchBar3 = ({
   };
 
   const inputProps = {
-    placeholder:
-      "Search for Banquet Halls, Photographer, etc..",
+    placeholder: "Search for Banquet Halls, Photographer, etc..",
     value,
     onChange,
+    onFocus: () => onSuggestionsFetchRequested({ value: '' }),
     className: "autosuggest-input",
   };
 
@@ -253,10 +259,11 @@ const SearchBar3 = ({
         renderSuggestionsContainer={renderSuggestionsContainer}
         getSuggestionValue={(suggestion) => suggestion}
         renderSuggestion={(suggestion) => <Suggestion>{suggestion}</Suggestion>}
+        shouldRenderSuggestions={() => true} 
         inputProps={inputProps}
         onSuggestionSelected={(_, { suggestion }) =>
           onSuggestionClick(suggestion)
-        } 
+        }
         theme={{
           container: {
             position: "relative",
