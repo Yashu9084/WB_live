@@ -7,7 +7,8 @@ import { FaSearch } from "react-icons/fa";
 const Container = styled.div`
   position: absolute;
   top: 60%;
-  left: 27%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,6 +37,8 @@ const Container = styled.div`
     font-size: 25px;
     top:29%;
     right:2%;
+    cursor:pointer;
+
   }
   .autosuggest-input {
     position: relative;
@@ -82,7 +85,8 @@ const Container = styled.div`
       font-size: 15px;
       cursor:pointer;
       right:-50%;
-      top:35%
+      top:35%;
+      cursor:pointer;
       
     }
   }
@@ -128,15 +132,17 @@ const SearchBar3 = ({
   const [value, setValue] = useState("");
   const [suggestionsList, setSuggestionsList] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const router = useRouter();
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    // Assuming you have a ref set up for your input
-    inputRef.current.focus();
-  }, []);
+  // useEffect(() => {
+  //   // Assuming you have a ref set up for your input
+  //   inputRef.current.focus();
+  // }, []);
 
   const searchHandler = () => {
+    onSuggestionsClearRequested();
     if (value == "5 Start Wedding Hotels") {
       setValue("5 Star Wedding Hotels");
     }
@@ -154,6 +160,20 @@ const SearchBar3 = ({
     console.log(slug);
     const url = `/${slug}/${selectedCity}/all`;
     value ? router.push(url) : <div></div>;
+  };
+
+  const onBlurHandler = () => {
+    setIsInputFocused(false);
+    setTimeout(() => {
+      if (!isInputFocused) {
+        // Check if input is not focused before clearing suggestions
+        onSuggestionsClearRequested();
+      }
+    }, 100);
+  };
+  const onFocusHandler = () => {
+    setIsInputFocused(true);
+    onSuggestionsFetchRequested({ value: "" });
   };
 
   const onSuggestionClick = (suggestion) => {
@@ -244,11 +264,44 @@ const SearchBar3 = ({
 
   const renderSuggestionsContainer = ({ containerProps, children }) => {
     const { ref, ...restContainerProps } = containerProps;
+    // Check if there are no suggestions and display "No match found"
+    const noSuggestions =
+      suggestionsList.length === 0 && value.trim() !== "" && isInputFocused;
+
     return (
       <SuggestionsContainer {...restContainerProps} ref={ref}>
-        <div style={{ maxHeight: "200px", overflowY: "auto" }}>{children}</div>
+        <div style={{ maxHeight: "200px", overflowY: "auto" }}>
+          {noSuggestions ? (
+            <div
+              style={{
+                padding: "10px",
+                fontSize: "18px",
+                color: "#808080",
+                textAlign: "center",
+              }}
+            >
+              No match found
+            </div>
+          ) : (
+            children
+          )}
+        </div>
       </SuggestionsContainer>
     );
+  };
+
+  const onSuggestionHighlighted = ({ suggestion }) => {
+    if (!suggestion) return;
+
+    const suggestionElement = document.querySelector(
+      `.suggestion-${suggestionsList.indexOf(suggestion)}`
+    );
+    if (suggestionElement) {
+      suggestionElement.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
   };
 
   const onSuggestionsClearRequested = () => {
@@ -269,9 +322,17 @@ const SearchBar3 = ({
     placeholder: "Search for Banquet Halls, Photographer, etc..",
     value,
     onChange,
-    onFocus: () => onSuggestionsFetchRequested({ value: "" }),
+    onFocus: onFocusHandler,
+    onBlur: onBlurHandler,
     ref: inputRef,
     className: "autosuggest-input",
+    onKeyPress: (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchHandler();
+        // Prevent the default action to stop the form from submitting if inside a form
+      }
+    },
   };
 
   return (
@@ -281,8 +342,15 @@ const SearchBar3 = ({
         onSuggestionsFetchRequested={debouncedFetchSuggestions}
         onSuggestionsClearRequested={onSuggestionsClearRequested}
         renderSuggestionsContainer={renderSuggestionsContainer}
+        onSuggestionHighlighted={onSuggestionHighlighted}
         getSuggestionValue={(suggestion) => suggestion}
-        renderSuggestion={(suggestion) => <Suggestion>{suggestion}</Suggestion>}
+        renderSuggestion={(suggestion, { query, isHighlighted }) => (
+          <Suggestion
+            className={`suggestion-${suggestionsList.indexOf(suggestion)}`}
+          >
+            {suggestion}
+          </Suggestion>
+        )}
         shouldRenderSuggestions={() => true}
         inputProps={inputProps}
         onSuggestionSelected={(_, { suggestion }) =>

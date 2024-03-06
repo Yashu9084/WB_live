@@ -8,21 +8,24 @@ import { useGlobalContext } from "@/context/MyContext";
 function Hero({vendor_list,venue_list,venueCategogies,cities }) {
   let venueObject = [];
   let vendorObject = [];
+  console.log(cities);
   const {
     vendorCategories,
     selectedCity,
   } = useGlobalContext();
   let venueNames = venueCategogies.map((category) => category.name);
+  let cityNames = cities.map((city) => city.name);
   let vendorNames = vendorCategories.map((category) => category.name);
   let vendorBrandNames = vendor_list.map((category) => category.brand_name);
   let allVenues = venue_list.map((category) => category.name);
   let allVenuesSlug = venue_list.map((category) => category.slug);
   let allVendorsSlug = vendor_list.map((category) => category.slug);
   const suggestions = [
-    ...venueNames,
+        ...venueNames,
     ...vendorNames,
     ...vendorBrandNames,
     ...allVenues,
+    
   ];
   for (let i = 0; i < allVenues.length; i++) {
     let obj = {};

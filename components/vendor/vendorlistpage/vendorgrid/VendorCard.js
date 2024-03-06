@@ -76,10 +76,11 @@ function VendorCard({ vendor, openLeadModel }) {
 export default memo(VendorCard);
 
 const Wrapper = styled.div`
-z-index: 1;
+    width:100%;
+    z-index: 1;
     background-color: white;
     overflow: hidden;
-    max-width: 45rem;
+    ${'' /* max-width: 45rem; */}
     border: 8px solid #f2f2f2;
     cursor: pointer;
     display: flex;
