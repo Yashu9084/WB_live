@@ -70,7 +70,7 @@ export default function Home({
       },
     ],
   };
-
+  
   return (
     <div>
       <Head>
@@ -100,6 +100,7 @@ export default function Home({
       <VendorCategoryCardGrid />
       {/* <FooterVendors/> */}
       <CityVenueHall cities={cities} />
+      {/* <LeadModel/> */}
     </div>
   );
 }
