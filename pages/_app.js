@@ -4,7 +4,6 @@ import { GlobalStyles } from "@/styles/GlobalStyle";
 import Script from "next/script";
 import Layout from "@/components/layout.js/Layout";
 import Head from "next/head";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function App({ Component, pageProps }) {
   return (
