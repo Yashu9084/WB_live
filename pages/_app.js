@@ -4,21 +4,23 @@ import { GlobalStyles } from "@/styles/GlobalStyle";
 import Script from "next/script";
 import Layout from "@/components/layout.js/Layout";
 import Head from "next/head";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function App({ Component, pageProps }) {
   return (
+    <GoogleOAuthProvider clientId="574528004757-c87512eurbi7qbnk6ct2h1dklr6cgoc2.apps.googleusercontent.com">
     <MyContextProvider>
       <GlobalStyles />
 
       <Head>
-        <title>Weddingbanquets.in </title>
+        <title>Banquet Halls, Wedding Venues, Wedding Planning in India- Wedding Banquets</title>
         <meta
           name="description"
-          content="Your one-stop shop for all of your wedding needs. Browse 1000+ party halls & wedding banquets. Get budget-friendly photographers, mehndi artists, makeup artists, & more..."
+          content="Wedding Banquet to Plan your wedding and make sure it is a memorable occasion. Look over 1000+ Indian Wedding venues for corporate events, weddings, birthday parties, and more."
         />
         <meta
           name="keywords"
-          content="Banquet Hall, Marriage Gardens, Wedding Banquets Hall, Destinations Wedding, Makeup Artis, Mehndi Artist, Videographers and Photograpghers, Band Baja Ghoriwala, Bridal Wear, Groom Wear, Small Functions Hall"
+          content="Affordable Banquet Halls Banquet Halls Top Banquet Halls Best Banquet Halls with price Banquet Halls with review Luxury Banquet Halls Best Banquet Halls List of Banquet Halls Cheapest Banquet Halls Banquet Halls near by Banquet Halls near Marriage Halls Party Halls Birthday Party Halls Function Halls Wedding Venues"
         />
         <meta name="author" content="y@sh" />
         {/* For google search console */}
@@ -65,7 +67,7 @@ export default function App({ Component, pageProps }) {
           id="my-script"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-M8J8X27');`,
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0], j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src= 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f); })(window,document,'script','dataLayer','GTM-M8J8X27');,`
           }}
         />
         {/* End Google Tag Manager */}
@@ -90,5 +92,6 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </MyContextProvider>
+    </GoogleOAuthProvider>
   );
 }

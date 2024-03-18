@@ -27,7 +27,6 @@ const Container = styled.div`
     border-top-right-radius: 25px;
     ${"" /* border-bottom-right-radius: 25px; */
   }
-  } */}
 
   .search-icon {
     position:absolute;
@@ -62,9 +61,10 @@ const Container = styled.div`
   @media (max-width: 1000px) {
     ${"" /* display:none; */}
     top: 70%;
-    left:25%;
+    ${"" /* left: 46%; */}
+    transform: translate(-61%, -50%);
     width: 40%;
-    display:none;
+    ${"" /* display:none; */}
     .autosuggest-input {
       width: 42rem;
       right: -5%;
@@ -107,7 +107,13 @@ const SuggestionsContainer = styled.div`
   overflow-y: auto;
   @media (max-width: 768px) {
     ${"" /* display:block; */}
-    margin-left: 15.9px;
+    margin-left: 15.5px;
+    ${"" /* border-top:0px solid black; */}
+    ${"" /* border-bottom:1px solid #bf9539; */}
+    border-right:1px solid #bf9539;
+    border-left: 1px solid #bf9539;
+    border-bottom: ${({ showSuggestions }) =>
+      showSuggestions ? "1px solid #bf9539" : "none"};
   }
 `;
 
@@ -177,6 +183,7 @@ const SearchBar3 = ({
   };
 
   const onSuggestionClick = (suggestion) => {
+    setShowSuggestions(false);
     if (suggestion == "5 Start Wedding Hotels") {
       suggestion = "5 Star Wedding Hotels";
     }
@@ -257,21 +264,26 @@ const SearchBar3 = ({
   };
 
   const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestionsList(getSuggestions(value || "a")); // Ensure suggestions for "a" are fetched if value is empty
+    //slicing 5 suggestion
+    setSuggestionsList(getSuggestions(value || "a").slice(0, 100));
+    // console.log(suggestionsList, "set");
     setShowSuggestions(true);
   };
-  const debouncedFetchSuggestions = debounce(onSuggestionsFetchRequested, 800); // Adjust the delay as needed
+  const debouncedFetchSuggestions = debounce(onSuggestionsFetchRequested, 800);
 
   const renderSuggestionsContainer = ({ containerProps, children }) => {
     const { ref, ...restContainerProps } = containerProps;
-    // Check if there are no suggestions and display "No match found"
     const noSuggestions =
       suggestionsList.length === 0 && value.trim() !== "" && isInputFocused;
 
     return (
-      <SuggestionsContainer {...restContainerProps} ref={ref}>
+      <SuggestionsContainer
+        {...restContainerProps}
+        ref={ref}
+        showSuggestions={showSuggestions}
+      >
         <div style={{ maxHeight: "200px", overflowY: "auto" }}>
-          {noSuggestions ? (
+          {showSuggestions && noSuggestions && (
             <div
               style={{
                 padding: "10px",
@@ -282,11 +294,11 @@ const SearchBar3 = ({
             >
               No match found
             </div>
-          ) : (
-            children
           )}
+          {!noSuggestions && children}
         </div>
       </SuggestionsContainer>
+      
     );
   };
 
@@ -330,7 +342,6 @@ const SearchBar3 = ({
       if (event.key === "Enter") {
         event.preventDefault();
         searchHandler();
-        // Prevent the default action to stop the form from submitting if inside a form
       }
     },
   };
@@ -364,11 +375,11 @@ const SearchBar3 = ({
             position: "absolute",
             top: "95%",
             left: 0,
-            width: "100.1%",
+            width: "100%",
             // marginLeft: "12px",
             border: "1px solid none",
             backgroundColor: "#fff",
-            zIndex: 9999, // Adjusted zIndex
+            zIndex: 9999,
           },
           suggestionHighlighted: {
             backgroundColor: "#bf9539",

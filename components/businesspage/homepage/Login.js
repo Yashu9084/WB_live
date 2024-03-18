@@ -122,6 +122,7 @@ export default function Login() {
           <div className="card">
             <h2 className="title-label"> Vendor Login</h2>
             <div className="form-item">
+              <div className="country-code">+91</div>
               <input
                 type="number"
                 name="phone"
@@ -209,6 +210,10 @@ const Wrapper = styled.section`
         border-bottom: 1px solid black;
         display: flex;
         align-items: center;
+      }
+      .country-code {
+        font-size: 16px;
+        font-weight: 600;
       }
       input,
       select,

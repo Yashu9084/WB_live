@@ -106,7 +106,7 @@ function Footer() {
                         <ul className='list-unstyled'>
                             <li className='f-phone'>
                                 <IoIosCall />
-                                <a href="tel: 18008890082" className='f-link '>1800 889 0082</a>
+                                <a href="tel: 8882198989" className='f-link '>8882198989</a>
                             </li>
                             <li className='f-phone'>
                                 <IoIosCall />
