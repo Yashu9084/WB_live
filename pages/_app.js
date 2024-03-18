@@ -8,7 +8,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function App({ Component, pageProps }) {
   return (
-    <GoogleOAuthProvider clientId="574528004757-c87512eurbi7qbnk6ct2h1dklr6cgoc2.apps.googleusercontent.com">
     <MyContextProvider>
       <GlobalStyles />
 
@@ -92,6 +91,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </MyContextProvider>
-    </GoogleOAuthProvider>
   );
 }

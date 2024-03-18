@@ -14,9 +14,6 @@ import { useState } from "react";
 import { setCookie } from "nookies";
 import { useGlobalContext } from "@/context/MyContext";
 import Header from "@/components/layout.js/Header";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
-
 export default function SignInPage() {
   //------------------------------------------------------------
   // If user is already login then redirect to the dashboard
@@ -58,7 +55,6 @@ export default function SignInPage() {
   const errorStyle = {
     borderColor: "red",
   };
-  
 
   async function handleSubmit(values) {
     try {
@@ -157,23 +153,12 @@ export default function SignInPage() {
                 </div>
 
                 <div className="google-facebook">
-                  {/* <div className="facebook">
-                                        <FcGoogle className="google-icon" />
-                                    </div>
-                                    <div className="google">
-                                        <FaFacebook className="facebook-icon" />
-                                    </div> */}
-                  <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                      const credentialResponseDecoded = jwtDecode(
-                        credentialResponse.credential
-                      );
-                      console.log(credentialResponseDecoded);
-                    }}
-                    onError={() => {
-                      console.log("Login Failed");
-                    }}
-                  />
+                  <div className="facebook">
+                    <FcGoogle className="google-icon" />
+                  </div>
+                  <div className="google">
+                    <FaFacebook className="facebook-icon" />
+                  </div>
                   ;
                 </div>
                 <p className="label">Or Login with your email</p>
