@@ -50,8 +50,6 @@ function FooterKeyword({ category, locality, city }) {
                         <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
                             {category_name} near {locality === "all" ? city : locality}
                         </Link>
-
-
                     </div>
                 </div>
             </div>

@@ -17,10 +17,39 @@ export default function SitemapGenPage() {
     const [selectedCat, setSelectedCat] = useState('')
 
     const [sitemapData, setSiteMapData] = useState("")
+    const [venuesData, setVenuesData] = useState("")
+    const [vendorssData, setVendorsData] = useState("")
+
+
 
     const baseUrl = 'https://weddingbanquets.in';
 
-
+    useEffect(() => {
+        const fetchVenues = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/api/get_all_venues`);
+                const data = await response.json();
+                setVenuesData(data);
+                console.log(data);
+                } catch (error) {
+                console.error("Error fetching venues:", error);
+            }
+        }
+        fetchVenues();
+    }, []);
+    useEffect(() => {
+        const fetchVendors = async () => {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/api/get_all_vendors`);
+                const data = await response.json();
+                setVendorsData(data);
+                console.log(data);
+                } catch (error) {
+                console.error("Error fetching venues:", error);
+            }
+        }
+        fetchVendors();
+    }, []);
 
 
     useEffect(() => {
@@ -61,11 +90,8 @@ export default function SitemapGenPage() {
         //Generate url for uenue
         if (selectedCat == "1") {
             venueCategories.forEach(cat => {
-
                 localites.forEach((locality) => {
-
                     const url = ` ${baseUrl}/${cat.slug}/${selectedCity}/${locality.slug} `;
-
                     // console.log(`<url>\n<loc>${url}</loc>\n<lastmod>${getCurrentDateTime()}</lastmod>\n<priority>1.00</priority>\n</url>`);
                     const sitemap = `<url>\n<loc>${url}</loc>\n<lastmod>${getCurrentDateTime()}</lastmod>\n<priority>1.00</priority>\n</url>\n\n`;
                     rawsitemap += sitemap;
@@ -103,29 +129,45 @@ export default function SitemapGenPage() {
 
                     rawsitemap += sitemap;
                 })
-
             });
 
             vendorCategories.forEach(cat => {
 
                 localites.forEach((locality) => {
                     const url = `${baseUrl}/${cat.slug}/${selectedCity}/${locality.slug} `;
-                    // console.log(`<url>\n<loc>${url}</loc>\n<lastmod>${getCurrentDateTime()}</lastmod>\n<priority>1.00</priority>\n</url>\n\n`);
                     const sitemap = `<url>\n<loc>${url}</loc>\n<lastmod>${getCurrentDateTime()}</lastmod>\n<priority>1.00</priority>\n</url>\n\n`;
-
                     rawsitemap += sitemap;
                 })
-
             });
-
             setCount((vendorCategories.length * localites.length) + (venueCategories.length * localites.length))
-
         }
+        if (selectedCat === "4") {
+            let tempSitemap = ``;
+            let totalCount = 0;
+            console.log(cities);
+            for (const city of cities) {
 
-
+                const allCategories = [...vendorCategories, ...venueCategories];
+                console.log(allCategories);
+                const localitiesResponse = await getLocalities(city.slug);
+                console.log(localitiesResponse);
+                const cityLocalities = localitiesResponse.success ? localitiesResponse.data : [];
+                for (const cat of allCategories) {
+                    console.log(cityLocalities);
+                    for (const locality of cityLocalities) {
+                        const url = `${baseUrl}/${cat.slug}/${city.slug}/${locality.slug}`;
+                        const sitemapEntry = `<url>\n<loc>${url}</loc>\n<lastmod>${getCurrentDateTime()}</lastmod>\n<priority>1.00</priority>\n</url>\n\n`;
+                        tempSitemap += sitemapEntry;
+                        totalCount++;
+                    }
+                }
+            }
+    
+            rawsitemap = tempSitemap;
+            setCount(totalCount);
+        }
         // console.log(rawsitemap)
         setSiteMapData(rawsitemap);
-
     }
 
     return (
@@ -155,7 +197,7 @@ export default function SitemapGenPage() {
                             <option value="1"> For venue</option>
                             <option value="2"> For Vendor</option>
                             <option value="3"> Venue and Vendor</option>
-
+                            <option value="4"> All With Cities</option>
                         </select>
                     </div>
                     <div className="dropdown" >
