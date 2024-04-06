@@ -15,6 +15,10 @@ const nextConfig = {
         hostname: 'cms.wbcrm.in',
       },
       {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
@@ -31,7 +35,7 @@ const nextConfig = {
         hostname: 'cdn.pixabay.com',
       },
     ],
-    domains: [ 'cms.wbcrm.in','lh3.googleusercontent.com',"weddingbanquets.in","blog.weddingbanquets.in"],
+    domains: [ 'localhost', 'cms.wbcrm.in','lh3.googleusercontent.com',"weddingbanquets.in","blog.weddingbanquets.in"],
   },
   
 }
