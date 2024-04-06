@@ -8,10 +8,10 @@ import SideFilter from "./filter/SideFilter";
 import Footerdescription from "@/components/miscellaneous/pagedescription/PageDescription";
 
 export default function VenueListPage({ data }) {
-    const { city, locality, category, localities, result, filterQuery } = data;
-    
-    const { venueCategories } = useGlobalContext();
-    // console.log(data.result.count);
+  const { city, locality, category, localities, result, filterQuery } = data;
+
+  const { venueCategories } = useGlobalContext();
+  // console.log(data.result.count);
 
   return (
     <>

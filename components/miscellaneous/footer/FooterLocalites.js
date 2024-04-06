@@ -17,41 +17,41 @@ function FooterLocalities({ city, category, localities }) {
           <div className="vendors-list">
             {showMore
               ? localities?.map((locality, i) => {
-                  return (
-                    <span key={locality.id}>
-                      <Link
-                        className="vendor-link"
-                        href={`/${category}/${city}/${locality.slug}`}
-                      >
-                        {`${category} in ${locality.name}`}
-                      </Link>
-                      <Link
-                        className="vendor-link"
-                        href={`/${category}/${city}/${locality.slug}`}
-                      >
-                        {`banquet hall in ${locality.name}`}
-                      </Link>
-                    </span>
-                  );
-                })
+                return (
+                  <span key={locality.id}>
+                    <Link
+                      className="vendor-link"
+                      href={`/${category}/${city}/${locality.slug}`}
+                    >
+                      {`${category} in ${locality.name}`}
+                    </Link>
+                    <Link
+                      className="vendor-link"
+                      href={`/${category}/${city}/${locality.slug}`}
+                    >
+                      {`${category.split(' ').map((word, index, array) => index === array.length - 1 ? word.slice(0, -1) : word).join(' ')} hall in ${locality.name}`}
+                    </Link>
+                  </span>
+                );
+              })
               : localities?.slice(0, 20).map((locality, i) => {
-                  return (
-                    <span key={locality.id}>
-                      <Link
-                        className="vendor-link"
-                        href={`/${category}/${city}/${locality.slug}`}
-                      >
-                        {`${category_name} in ${locality.name}`}
-                      </Link>
-                      <Link
-                        className="vendor-link"
-                        href={`/${category}/${city}/${locality.slug}`}
-                      >
-                        {`banquet hall in ${locality.name}`}
-                      </Link>
-                    </span>
-                  );
-                })}
+                return (
+                  <span key={locality.id}>
+                    <Link
+                      className="vendor-link"
+                      href={`/${category}/${city}/${locality.slug}`}
+                    >
+                      {`${category_name} in ${locality.name}`}
+                    </Link>
+                    <Link
+                      className="vendor-link"
+                      href={`/${category}/${city}/${locality.slug}`}
+                    >
+                      {`${category.split(' ').map((word, index, array) => index === array.length - 1 ? word.slice(0, -1) : word).join(' ').replace('-', ' ')} in ${locality.name}`}
+                    </Link>
+                  </span>
+                );
+              })}
           </div>
           <span
             className="read-more-btn"

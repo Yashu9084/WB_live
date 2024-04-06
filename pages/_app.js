@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
   return (
     <MyContextProvider>
       <GlobalStyles />
-
+      
       <Head>
         <title>Banquet Halls, Wedding Venues, Wedding Planning in India- Wedding Banquets</title>
         <meta
@@ -36,17 +36,20 @@ export default function App({ Component, pageProps }) {
           type="image/png"
           href="https://weddingbanquets.in/fav-icon/favicon14.png"
         />
+        <link rel="preload" href="/banner/banner.png" as="image"/>
+
+        
         {/* Open graph meta tag */}
         <meta property="og:site_name" content="Weddingbanquets" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="en_US" />
-
         {/* twiiter card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Weddingbanquets" />
-        <meta name="twitter:url" content="https://weddingbanquets.in" />
-        <meta name="twitter:description" content="Your one-stop shop for all of your wedding needs. Browse 1000+ party halls &amp; wedding banquets. Get budget-friendly photographers, mehndi artists, makeup artists, &amp; more..." />
-        <meta name="twitter:image" content="https://weddingbanquets.in/twitter-img.png"/>
+          <meta name="twitter:card" content="summary_large_image" />
+          
+          <meta name="twitter:title" content="Weddingbanquets" />
+          <meta name="twitter:url" content="https://weddingbanquets.in" />
+          <meta name="twitter:description" content="Your one-stop shop for all of your wedding needs. Browse 1000+ party halls &amp; wedding banquets. Get budget-friendly photographers, mehndi artists, makeup artists, &amp; more..." />
+          <meta name="twitter:image" content="https://weddingbanquets.in/twitter-img.png"/>
       </Head>
       <Layout>
         {/* Google Tag Manager (noscript) */}

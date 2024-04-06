@@ -72,6 +72,7 @@ export const MyContextProvider = ({ children }) => {
   //This useEffect will fetch the locality if the selectedcity change
   useEffect(() => {
     async function fetchLocalities() {
+      
       const response = await getLocalities(selectedCity);
       if (response.success) {
         setLocalities(response.data);

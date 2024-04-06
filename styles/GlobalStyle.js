@@ -113,7 +113,7 @@ li {
 }
 
 .container {
-  max-width: 145rem;
+  max-width: 155rem;
   margin: auto;
   /* margin: 1rem; */
   padding: 1rem;
@@ -151,4 +151,4 @@ li {
 
   
 }
-`
+`;
