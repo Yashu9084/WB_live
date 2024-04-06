@@ -15,6 +15,10 @@ const nextConfig = {
         hostname: 'cms.wbcrm.in',
       },
       {
+        protocol: 'https',
+        hostname: 'i.ibb.co',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
       },

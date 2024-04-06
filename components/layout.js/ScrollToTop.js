@@ -59,7 +59,6 @@ useEffect(()=>{
 
 const Button = styled.div`
 
-
  width: 100px;
  margin: auto;
 /* height: 40px; */ 

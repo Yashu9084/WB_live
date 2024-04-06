@@ -5,6 +5,7 @@ import { useState } from "react";
 import { BiRupee } from 'react-icons/bi'
 import CallingRequest from "@/lib/request/callingrequest/CallingRequest";
 import Image from "next/image";
+import TabsComponent from "../tabsComponent/TabsComponent";
 
 export default function VendorBasicInfo({ vendor, openLeadsModel }) {
     // console.log(vendor)
@@ -66,11 +67,12 @@ export default function VendorBasicInfo({ vendor, openLeadsModel }) {
 
 
                 </div>
+                <TabsComponent images={vendor.images} />
+
 
 
             </div>
         </div>
-
     </Wrapper>)
 }
 

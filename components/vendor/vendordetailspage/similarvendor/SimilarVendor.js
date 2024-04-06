@@ -36,15 +36,15 @@ export default function SimilarVendors({vendors}) {
                 breakpoints={{
 
                     500: {
-                        slidesPerView: 2,
+                        slidesPerView: 1.2,
                         spaceBetween: 20,
                     },
                     800: {
-                        slidesPerView: 3,
+                        slidesPerView: 2,
                         spaceBetween: 20,
                     },
                     1200: {
-                        slidesPerView:4,
+                        slidesPerView:3,
                         spaceBetween: 20,
                     },
                 }}

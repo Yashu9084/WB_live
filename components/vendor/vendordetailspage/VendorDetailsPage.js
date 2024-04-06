@@ -8,7 +8,7 @@ import Tabs from "./tabs/Tabs";
 import ImageSlider from "@/components/venue/venuedetailspage/imageslider/ImageSlider";
 import HaveUsCallYou from "@/components/miscellaneous/haveuscallyou/HaveUsCallYou";
 import { useGlobalContext } from "@/context/MyContext";
-import Gallery from "@/components/venue/venuedetailspage/gallery/Gallery";
+import Gallery from "@/components/vendor/vendordetailspage/gallery/Gallery";
 import TabsComponent from "./tabsComponent/TabsComponent";
 
 export default function VendorDetailsPage({ response }) {
@@ -46,7 +46,7 @@ export default function VendorDetailsPage({ response }) {
       <BreadCrumb meta_title={vendor.meta_title} />
       <ImageSlider images={vendor.images} wb_assured={vendor?.wb_assured} />
       <VendorBasicInfo vendor={vendor} openLeadsModel={openLeadsModel} />
-      <TabsComponent images={vendor.images} />
+      {/* <TabsComponent images={vendor.images} /> */}
       <Tabs vendor={vendor} openLeadsModel={openLeadsModel} />
       <HaveUsCallYou />
       <Policies />

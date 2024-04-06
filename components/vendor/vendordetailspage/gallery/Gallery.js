@@ -14,9 +14,9 @@ function Gallery({ images }) {
   images = images ? images.split(",") : [];
   const [visibleImages, setVisibleImages] = useState(9);
 
-  const onInit = () => {
-    console.log("lightGallery has been initialized");
-  };
+  // const onInit = () => {
+  //   console.log("lightGallery has been initialized");
+  // };
 
   function srcset(image, size, rows = 1, cols = 1) {
     return {
@@ -82,7 +82,7 @@ export default Gallery;
 const Wrapper = styled.div`
   margin-top: -40px;
   .lg-react-element {
-    column-count: 3;
+    column-count: 5;
   }
 
   img {

@@ -1,4 +1,4 @@
-import Gallery from "@/components/venue/venuedetailspage/gallery/Gallery";
+import Gallery from "@/components/vendor/vendordetailspage/gallery/Gallery";
 import React, { useState } from "react";
 import { useSpring, animated } from "react-spring";
 import styled from "styled-components";

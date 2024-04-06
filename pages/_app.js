@@ -4,6 +4,7 @@ import { GlobalStyles } from "@/styles/GlobalStyle";
 import Script from "next/script";
 import Layout from "@/components/layout.js/Layout";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -90,6 +91,20 @@ export default function App({ Component, pageProps }) {
         </Script>
         {/* End Google tag (gtag.js) */}
 
+        <a
+      href="https://api.whatsapp.com/send?phone=918882198989&text=Hi"
+      className="whatsapp-button"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        position: 'fixed',
+        right: '25px', 
+        bottom: '25px',
+        zIndex: '99999999',
+      }}
+    >
+  <Image src="https://i.ibb.co/VgSspjY/whatsapp-button.png" width={55} height={55} alt=""></Image>
+  </a>
         <Component {...pageProps} />
       </Layout>
     </MyContextProvider>
