@@ -6,6 +6,7 @@ function FooterKeyword({ category, locality, city }) {
   const category_name = category.split("-").join(" ");
   const new_category_name = "banquet hall";
 
+<<<<<<< HEAD
   return (
     <Section className="section-vendors">
       <div className="container">
@@ -100,6 +101,59 @@ function FooterKeyword({ category, locality, city }) {
       </div>
     </Section>
   );
+=======
+    const category_name = category.split("-").join(" ");
+
+
+    return (
+        <Section className='section-vendors'>
+            <div className="container">
+                <h2 className='vendors-heading'>Frequent Searches Leading To This Page</h2>
+                <div className="vendors-container">
+                    <div className="vendors-list">
+
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Affordable {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            AC {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Top {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Best {category_name} with price in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            {category_name} with review in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Luxury {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Best {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            List of {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            Cheap {category_name} in {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            {category_name} nearby {locality === "all" ? city : locality}
+                        </Link>
+                        <Link className='vendor-link' href={`/${category}/${city}/${locality}`}>
+                            {category_name} near {locality === "all" ? city : locality}
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </Section>
+    )
+>>>>>>> c9032f251edbc26e2b296a6f5d02bc1f5162476a
 }
 
 const Section = styled.section`
